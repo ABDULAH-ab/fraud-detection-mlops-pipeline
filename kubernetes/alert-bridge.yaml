@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alert-bridge
+  namespace: fraud-mlops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alert-bridge
+  template:
+    metadata:
+      labels:
+        app: alert-bridge
+    spec:
+      containers:
+        - name: alert-bridge
+          image: ghcr.io/abdulah-ab/fraud-detection-mlops-pipeline/alert-bridge:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: GITHUB_REPOSITORY
+              valueFrom:
+                secretKeyRef:
+                  name: github-dispatch-creds
+                  key: repository
+            - name: GITHUB_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: github-dispatch-creds
+                  key: token
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alert-bridge
+  namespace: fraud-mlops
+spec:
+  selector:
+    app: alert-bridge
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+

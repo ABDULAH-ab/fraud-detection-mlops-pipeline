@@ -1,0 +1,31 @@
+groups:
+  - name: fraud_model_alerts
+    rules:
+      - alert: FraudRecallLow
+        expr: fraud_model_recall < 0.80
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Fraud recall dropped below threshold"
+          description: "Recall is below 0.80 for 5 minutes. Trigger retraining workflow."
+
+      - alert: DataDriftHigh
+        expr: fraud_data_drift_score > 0.20
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Data drift exceeded threshold"
+          description: "Average PSI drift is above 0.20. Trigger retraining workflow."
+
+  - name: fraud_system_alerts
+    rules:
+      - alert: FraudApiLatencyHigh
+        expr: histogram_quantile(0.95, sum(rate(fraud_api_latency_seconds_bucket[5m])) by (le)) > 1.0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Inference API latency spike"
+          description: "95th percentile latency exceeded 1 second."

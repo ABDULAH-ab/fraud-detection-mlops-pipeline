@@ -1,0 +1,33 @@
+{
+  "title": "Model Performance Dashboard",
+  "timezone": "browser",
+  "panels": [
+    {
+      "title": "Fraud Recall Trend",
+      "type": "timeseries",
+      "targets": [{"expr": "fraud_model_recall"}]
+    },
+    {
+      "title": "False Positive Rate",
+      "type": "timeseries",
+      "targets": [{"expr": "fraud_model_false_positive_rate"}]
+    },
+    {
+      "title": "Precision",
+      "type": "timeseries",
+      "targets": [{"expr": "fraud_model_precision"}]
+    },
+    {
+      "title": "Fraud Detection Rate",
+      "type": "timeseries",
+      "targets": [{"expr": "fraud_detection_rate"}]
+    },
+    {
+      "title": "Prediction Confidence",
+      "type": "timeseries",
+      "targets": [{"expr": "fraud_prediction_confidence_mean"}]
+    }
+  ],
+  "schemaVersion": 39,
+  "version": 1
+}

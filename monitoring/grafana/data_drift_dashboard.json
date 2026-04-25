@@ -1,0 +1,23 @@
+{
+  "title": "Data Drift Dashboard",
+  "timezone": "browser",
+  "panels": [
+    {
+      "title": "Average PSI Drift",
+      "type": "timeseries",
+      "targets": [{"expr": "fraud_data_drift_score"}]
+    },
+    {
+      "title": "Missing Value Trend",
+      "type": "timeseries",
+      "targets": [{"expr": "fraud_missing_value_ratio"}]
+    },
+    {
+      "title": "Input Anomaly Rate",
+      "type": "timeseries",
+      "targets": [{"expr": "fraud_input_anomaly_rate"}]
+    }
+  ],
+  "schemaVersion": 39,
+  "version": 1
+}

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: github-dispatch-creds
+  namespace: fraud-mlops
+type: Opaque
+stringData:
+  repository: ABDULAH-ab/fraud-detection-mlops-pipeline
+  token: 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
